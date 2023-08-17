@@ -4,45 +4,62 @@ This package provides a convenient set of Python wrappers
 for a set of routines used to perform Bayesian analysis
 on quasi-elastic neutron-scattering data.
 
-## Building the f2py python extensions
+## Setup
 
 The simplest way to build the distribution is to use [conda](https://docs.conda.io/en/latest/miniconda.html) to create
 a separate environment to build the distribution.
 
 Create a minimal conda environment:
 
-*Windows*
+*Windows - Python 3.10*
 
+```sh
+mamba env create -f qeb-dev-win-py310.yml
+conda activate qeb-dev-py310
 ```
 
-conda create --name fortran python=3.8
-conda activate fortran
-conda install numpy
-conda install -c msys2 m2w64-gcc-fortran
+*Linux - Python 3.10*
 
+```sh
+mamba env create -f qeb-dev-linux-py310.yml
+conda activate qeb-dev-py310
 ```
 
-*OSX and Linux*
+*Windows - Python 3.8*
 
+```sh
+mamba env create -f qeb-dev-win-py38.yml
+conda activate qeb-dev-py38
 ```
 
-conda create --name fortran python=3.8
-conda activate fortran
-conda install numpy
-conda install -c conda-forge fortran-compiler
+*Linux - Python 3.8*
+
+```sh
+mamba env create -f qeb-dev-linux-py38.yml
+conda activate qeb-dev-py38
 ```
 
-NOTE: If you're building on OSX with the conda compilers it likely you'll need to export the compiler flags export LDFLAGS="-undefined dynamic_lookup -bundle"
+## Build and Test
+
+From the root of this repository:
+
+To build in-place, run
+
+```sh
+python -m pip install -v --editable .
+```
 
 To build a wheel, run
 
-```
+```sh
 python setup.py bdist_wheel
 ```
 
-from the root directory of the repository. 
+To run the tests
 
-
+```sh
+pytest quasielasticbayes/test
+```
 
 ## Building for PyPi
 
