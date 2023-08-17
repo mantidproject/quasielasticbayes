@@ -1,8 +1,9 @@
 """Characterization tests for QLres module"""
 import os.path
+import tempfile
 import unittest
 import numpy as np
-from quasielasticbayes.testing import load_json
+from quasielasticbayes.testing import add_path, load_json
 
 from quasielasticbayes.QLres import qlres
 
@@ -21,11 +22,14 @@ class QLresTest(unittest.TestCase):
         with open(os.path.join(DATA_DIR, 'qlres', 'qlres-input-spec-0.json'), 'r') as fh:
             inputs = load_json(fh)
 
-        nd, xout, yout, eout, yfit, yprob = qlres(inputs['numb'], inputs['Xv'], inputs['Yv'], inputs['Ev'],
-                                                  inputs['reals'], inputs['fitOp'],
-                                                  inputs['Xdat'], inputs['Xb'], inputs['Yb'],
-                                                  inputs['Wy'], inputs['We'], inputs['dtn'], inputs['xsc'],
-                                                  inputs['wrks'], inputs['wrkr'], inputs['lwrk'])
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            inputs['wrks'] = add_path(tmp_dir, inputs['wrks'])
+
+            nd, xout, yout, eout, yfit, yprob = qlres(inputs['numb'], inputs['Xv'], inputs['Yv'], inputs['Ev'],
+                                                      inputs['reals'], inputs['fitOp'],
+                                                      inputs['Xdat'], inputs['Xb'], inputs['Yb'],
+                                                      inputs['Wy'], inputs['We'], inputs['dtn'], inputs['xsc'],
+                                                      inputs['wrks'], inputs['wrkr'], inputs['lwrk'])
 
         # verify
         with open(os.path.join(DATA_DIR, 'qlres', 'qlres-output-spec-0.json'), 'r') as fh:
