@@ -1,4 +1,4 @@
-name: quasielasticbayes-dev-py310
+name: qeb-dev-py310
 
 channels:
     - conda-forge

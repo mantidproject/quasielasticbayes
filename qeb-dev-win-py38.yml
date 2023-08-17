@@ -1,4 +1,4 @@
-name: quasielasticbayes-dev
+name: qeb-dev-py38
 
 channels:
     - conda-forge
