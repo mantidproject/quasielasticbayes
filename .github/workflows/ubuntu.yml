@@ -1,0 +1,28 @@
+name: Ubuntu - Python 3.8
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          miniforge-variant: Mambaforge
+          environment-file: qeb-dev-linux-py38.yml
+          activate-environment: qeb-dev-py38
+      - name: Build
+        run: |
+          python -m pip install -v --editable .
+      - name: Test
+        run: |
+          pytest quasielasticbayes/test

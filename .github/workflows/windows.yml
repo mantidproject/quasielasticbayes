@@ -1,0 +1,29 @@
+name: Windows - Python 3.8
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          activate-environment: qeb-dev-py38
+          environment-file: qeb-dev-win-py38.yml
+          python-version: 3.8
+          auto-activate-base: false
+      - name: Build
+        run: |
+          conda activate qeb-dev-py38
+          python -m pip install -v --editable .
+      - name: Test
+        run: |
+          pytest quasielasticbayes/test
