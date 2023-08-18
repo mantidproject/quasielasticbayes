@@ -54,16 +54,16 @@ conda activate qeb-dev-py38
 
 From the root of this repository:
 
-To build in-place, run
-
-```sh
-python -m pip install -v --editable .
-```
-
 To build a wheel, run
 
 ```sh
 python setup.py bdist_wheel
+```
+
+To install the wheel, run
+
+```sh
+pip install dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
 ```
 
 To run the tests
