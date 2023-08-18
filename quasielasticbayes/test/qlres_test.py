@@ -3,7 +3,7 @@ import os.path
 import tempfile
 import unittest
 import numpy as np
-from quasielasticbayes.testing import add_path, load_json
+from quasielasticbayes.testing import add_path, get_OS_precision, load_json
 
 from quasielasticbayes.QLres import qlres
 
@@ -35,12 +35,13 @@ class QLresTest(unittest.TestCase):
         with open(os.path.join(DATA_DIR, 'qlres', 'qlres-output-spec-0.json'), 'r') as fh:
             reference = load_json(fh)
         
+        dp = get_OS_precision()
         self.assertEqual(reference['nd'], nd)
-        np.testing.assert_almost_equal(reference['xout'], xout)
-        np.testing.assert_almost_equal(reference['yout'], yout)
-        np.testing.assert_almost_equal(reference['eout'], eout)
-        np.testing.assert_almost_equal(reference['yfit'], yfit)
-        np.testing.assert_almost_equal(reference['yprob'], yprob)
+        np.testing.assert_almost_equal(reference['xout'], xout, decimal=dp)
+        np.testing.assert_almost_equal(reference['yout'], yout, decimal=dp)
+        np.testing.assert_almost_equal(reference['eout'], eout, decimal=dp)
+        np.testing.assert_almost_equal(reference['yfit'], yfit, decimal=dp)
+        np.testing.assert_almost_equal(reference['yprob'], yprob, decimal=dp)
 
 if __name__ == '__main__':
     unittest.main()

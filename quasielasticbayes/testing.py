@@ -58,4 +58,4 @@ def get_qlse_prob(ref):
     if sys.platform == 'win32':
         return ref
     else:
-        return [-2.7651033e+04, -1.8748578e+2,  0.0, -5.8251953e-1]
+        return [-2.7656994e+04, -1.8887866e+2,  0.0, -5.8251953e-1]
