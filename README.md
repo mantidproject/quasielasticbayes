@@ -63,7 +63,7 @@ python setup.py bdist_wheel
 To install the wheel, run
 
 ```sh
-pip install dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
+pip install --force-reinstall dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
 ```
 
 To run the tests

@@ -34,7 +34,7 @@ jobs:
       - name: Build & Install
         run: |
           python setup.py bdist_wheel
-          pip install dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
+          pip install --force-reinstall dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
       - name: Test
         run: |
           pytest quasielasticbayes/test
