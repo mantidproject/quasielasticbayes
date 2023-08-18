@@ -1,4 +1,4 @@
-name: Ubuntu - Python 3.10
+name: Build and Test - Python 3.10
 
 on:
   pull_request:
@@ -6,7 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         shell: bash -l {0}
@@ -14,11 +17,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Setup Miniconda
+      - name: Setup Miniconda - Ubuntu
+        if: matrix.os == 'ubuntu-latest'
         uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           miniforge-variant: Mambaforge
           environment-file: qeb-dev-linux-py310.yml
+          activate-environment: qeb-dev-py310
+      - name: Setup Miniconda - Windows
+        if: matrix.os == 'windows-latest'
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          miniforge-variant: Mambaforge
+          environment-file: qeb-dev-win-py310.yml
           activate-environment: qeb-dev-py310
       - name: Build
         run: |
