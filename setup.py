@@ -122,7 +122,7 @@ extensions = [create_fortran_extension(name, source_paths(PurePosixPath('quasiel
 
 setup(
     name=PACKAGE_NAME,
-    install_requires=['numpy>=1.16'],
+    install_requires=['numpy>=1.21'],
     packages=[PACKAGE_NAME],
     description='A Bayesian fitting package used for fitting quasi-elastic neutron scattering data.',
     long_description='This package wraps fortran Bayesian fitting libraries using f2py. '
