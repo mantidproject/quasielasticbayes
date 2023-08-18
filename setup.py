@@ -122,7 +122,7 @@ extensions = [create_fortran_extension(name, source_paths(PurePosixPath('quasiel
 
 setup(
     name=PACKAGE_NAME,
-    install_requires=['numpy>=1.12'],
+    install_requires=['numpy>=1.16'],
     packages=[PACKAGE_NAME],
     description='A Bayesian fitting package used for fitting quasi-elastic neutron scattering data.',
     long_description='This package wraps fortran Bayesian fitting libraries using f2py. '
@@ -132,7 +132,7 @@ setup(
     ext_modules=extensions,
     author_email="mantid-help@mantidproject.org",
     url='https://www.mantidproject.org',
-    version="0.1.1",
+    version="0.2.0",
     license='BSD',
     cmdclass={'build_ext': FortranExtensionBuilder}
 )
