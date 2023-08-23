@@ -1,4 +1,4 @@
 ./scripts/clean.sh
 
-# Build the project
-python -m pip install -v --editable .
+# Build the project wheel
+python setup.py bdist_wheel
