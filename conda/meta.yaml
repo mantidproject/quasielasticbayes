@@ -1,0 +1,44 @@
+{% set name = "quasielasticbayes" %}
+{% set version = "0.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/quasielasticbayes-{{ version }}.tar.gz
+  sha256: 181167e9f33767f18332cd343c389f78510defd18ff222af08527be89782c18c
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
+  host:
+    - python
+    - numpy
+    - pip
+  run:
+    - python
+    - {{ pin_compatible('numpy') }}
+
+test:
+  imports:
+    - quasielasticbayes
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://www.mantidproject.org
+  summary: A Bayesian fitting package used for fitting quasi-elastic neutron scattering data.
+  license: BSD-3-Clause
+  license_file: LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - robertapplin
