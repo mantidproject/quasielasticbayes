@@ -34,9 +34,8 @@ jobs:
       - name: Build & Install
         run: |
           cd conda/recipe
-          conda build .
-          echo ${PWD}
-          echo ${SRC_DIR}
+          conda build . --output-folder .
+          ls
           conda install --use-local quasielasticbayes-0.2.0-*.tar.bz2
       - name: Test
         run: |
