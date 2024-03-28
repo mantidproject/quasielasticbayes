@@ -5,4 +5,5 @@ channels:
 
 dependencies:
     - conda-build
+    - conda-verify
     - python=3.10.*

@@ -5,6 +5,7 @@ channels:
 
 dependencies:
     - conda-build
+    - conda-verify
     - numpy
     - python=3.10.*
     - pytest
