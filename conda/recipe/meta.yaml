@@ -6,8 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  git_url: git@github.com:mantidproject/quasielasticbayes.git
-  git_rev: 621566baa1c229269a4679993a5b58ee2f2ce723
+  path: ../../
 
 build:
   script: {{ PYTHON }} setup.py install
