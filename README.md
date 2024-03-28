@@ -82,6 +82,14 @@ Once built the wheel can be uploaded using twine:
 twine upload ./dist/name_of_wheel
 ```
 
+## Building for conda-forge
+
+Enter the `conda` directory and then build the package with
+
+```
+conda build .
+```
+
 ### Linux Notes
 
 Linux wheels require a docker image to produce a `manylinux2010` wheel. For more details see this blog https://uwekorn.com/2019/09/15/how-we-build-apache-arrows-manylinux-wheels.html
