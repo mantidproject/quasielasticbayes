@@ -26,9 +26,9 @@ test:
   imports:
     - quasielasticbayes
   commands:
-    - pip check
+    - cd {{ SRC_DIR }}/../ && cd work_moved_* && pytest quasielasticbayes/test
   requires:
-    - pip
+    - pytest
 
 about:
   home: https://www.mantidproject.org
