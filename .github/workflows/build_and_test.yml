@@ -17,8 +17,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      - name: Setup Build Env
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-variant: Mambaforge
           environment-file: conda/recipe/qeb-build-py310.yml
@@ -27,12 +27,12 @@ jobs:
         run: |
           cd conda/recipe
           conda build . --output-folder .
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      - name: Setup Test Env
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-variant: Mambaforge
-          environment-file: conda/recipe/qeb-ci-py310.yml
-          activate-environment: qeb-ci-py310
+          environment-file: conda/recipe/qeb-test-py310.yml
+          activate-environment: qeb-test-py310
       - name: Install & Test
         run: |
           conda install --use-local conda/recipe/*-64/quasielasticbayes-0.2.0-*.tar.bz2
