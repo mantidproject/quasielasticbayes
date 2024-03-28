@@ -6,23 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/quasielasticbayes-{{ version }}.tar.gz
-  sha256: 181167e9f33767f18332cd343c389f78510defd18ff222af08527be89782c18c
+  git_url: https://github.com/mantidproject/quasielasticbayes.git
+  git_rev: 621566baa1c229269a4679993a5b58ee2f2ce723
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script: {{ PYTHON }} setup.py install
   number: 0
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ compiler('fortran') }}
+    - {{ compilers }}
   host:
-    - python
+    - python {{ python }}
     - numpy
-    - pip
   run:
-    - python
+    - python {{ python }}
     - {{ pin_compatible('numpy') }}
 
 test:

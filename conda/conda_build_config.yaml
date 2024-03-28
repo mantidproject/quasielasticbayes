@@ -1,0 +1,5 @@
+compilers:
+  - m2w64-toolchain_win-64 # [win]
+
+python:
+  - 3.10
