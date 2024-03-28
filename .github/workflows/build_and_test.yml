@@ -35,8 +35,7 @@ jobs:
         run: |
           cd conda/recipe
           conda build . --output-folder .
-          ls
-          conda install --use-local quasielasticbayes-0.2.0-*.tar.bz2
+          conda install --use-local *-64/quasielasticbayes-0.2.0-*.tar.bz2
       - name: Test
         run: |
           pytest quasielasticbayes/test
