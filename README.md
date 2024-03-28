@@ -78,7 +78,7 @@ If this is your first time interacting with PyPi then please see [here](https://
 
 Once built the wheel can be uploaded using twine:
 
-```
+```sh
 twine upload ./dist/name_of_wheel
 ```
 
@@ -86,8 +86,20 @@ twine upload ./dist/name_of_wheel
 
 Enter the `conda` directory and then build the package with
 
-```
+```sh
 conda build .
+```
+
+To install the package built locally, run
+
+```sh
+conda install --use-local /path/to/quasielasticbayes-*.tar.bz2
+```
+
+To run the tests, you will also need to install `pytest` and `numpy`.
+
+```sh
+conda install -c conda-forge numpy pytest
 ```
 
 ### Linux Notes
