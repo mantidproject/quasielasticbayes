@@ -94,13 +94,13 @@ conda activate qeb-build-py310
 To build the package, run
 
 ```sh
-conda build .
+conda build . --output-folder .
 ```
 
 To install the package built locally, run
 
 ```sh
-conda install --use-local /path/to/quasielasticbayes-*.tar.bz2
+conda install --use-local *-64/quasielasticbayes-*.tar.bz2
 ```
 
 To run the tests, you will also need to install `pytest` and `numpy`.
