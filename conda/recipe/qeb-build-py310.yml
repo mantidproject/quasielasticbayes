@@ -1,0 +1,8 @@
+name: qeb-build-py310
+
+channels:
+    - conda-forge
+
+dependencies:
+    - conda-build
+    - python=3.10.*

@@ -14,14 +14,14 @@ Create a minimal conda environment:
 ### Windows - Python 3.10
 
 ```sh
-mamba env create -f qeb-dev-win-py310.yml
+mamba env create -f conda/develop/qeb-win-py310.yml
 conda activate qeb-dev-py310
 ```
 
 ### Linux - Python 3.10
 
 ```sh
-mamba env create -f qeb-dev-linux-py310.yml
+mamba env create -f conda/develop/qeb-linux-py310.yml
 conda activate qeb-dev-py310
 ```
 
@@ -39,14 +39,14 @@ to the compiler version. To install:
 Then create a developer conda environment:
 
 ```sh
-mamba env create -f qeb-dev-win-py38.yml
+mamba env create -f conda/develop/qeb-win-py38.yml
 conda activate qeb-dev-py38
 ```
 
 ### Linux - Python 3.8
 
 ```sh
-mamba env create -f qeb-dev-linux-py38.yml
+mamba env create -f conda/develop/qeb-linux-py38.yml
 conda activate qeb-dev-py38
 ```
 
@@ -84,7 +84,14 @@ twine upload ./dist/name_of_wheel
 
 ## Building for conda-forge
 
-Enter the `conda` directory and then build the package with
+Enter the `conda/recipe` directory and activate the build environment
+
+```sh
+mamba env create -f conda/recipe/qeb-build-py310.yml
+conda activate qeb-build-py310
+```
+
+To build the package, run
 
 ```sh
 conda build .

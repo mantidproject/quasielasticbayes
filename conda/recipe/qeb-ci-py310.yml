@@ -1,0 +1,10 @@
+name: qeb-ci-py310
+
+channels:
+    - conda-forge
+
+dependencies:
+    - conda-build
+    - numpy
+    - python=3.10.*
+    - pytest
