@@ -6,7 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  path: ../../
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.b1.tar.gz
+  sha256: e423fdcf9cec779d3873cbae36263f772985c881feb61d75db6b82ccd1017f07
 
 build:
   script: {{ PYTHON }} setup.py install
@@ -35,7 +36,6 @@ test:
     - pytest
 
 about:
-  home: https://www.mantidproject.org
   summary: A Bayesian fitting package used for fitting quasi-elastic neutron scattering data.
   license: BSD-3-Clause
   license_file: LICENSE.txt
