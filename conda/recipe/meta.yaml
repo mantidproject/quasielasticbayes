@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.b2.tar.gz
-  sha256: 7c6393ef675cbb914a67916257455f96a3df56f5ebb03d0c43625e66be7359d8
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.b4.tar.gz
+  sha256: 83a176633d6a4872ac843bc94b4ea42aae969cc6003e5d0b5e308604685fd98d
 
 build:
   script: {{ PYTHON }} setup.py install
