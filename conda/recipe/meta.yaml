@@ -25,9 +25,13 @@ requirements:
 test:
   imports:
     - quasielasticbayes
-  commands:
-    - cd {{ SRC_DIR }}/../ && cd work_moved_* && pytest quasielasticbayes/test
   requires:
+    - pip
+    - pytest
+  source_files:
+    - quasielasticbayes/test/
+  commands:
+    - pip check
     - pytest
 
 about:
