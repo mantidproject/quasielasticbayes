@@ -18,6 +18,7 @@ requirements:
     - {{ compilers }}
   host:
     - python {{ python }}
+    - setuptools
     - numpy
   run:
     - python {{ python }}
