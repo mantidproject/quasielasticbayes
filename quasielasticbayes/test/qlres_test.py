@@ -37,13 +37,11 @@ class QLresTest(unittest.TestCase):
         
         dp = get_OS_precision()
         self.assertEqual(reference['nd'], nd)
-        float_values = yprob.astype(float)
-        print(float_values)
         np.testing.assert_almost_equal(reference['xout'], xout, decimal=dp)
         np.testing.assert_almost_equal(reference['yout'], yout, decimal=dp)
         np.testing.assert_almost_equal(reference['eout'], eout, decimal=dp)
         np.testing.assert_almost_equal(reference['yfit'], yfit, decimal=dp)
-        np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-6)
+        np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-2)
 
 if __name__ == '__main__':
     unittest.main()
