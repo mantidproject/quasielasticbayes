@@ -36,15 +36,7 @@ def add_path(file_path, file_name):
 
 
 def get_OS_precision():
-    if sys.platform == 'win32':
-        # Windows
-        return 7  # np.almost_equals default
-    elif sys.platform == 'darwin':
-        # Mac OS
-        return 7
-    else:
-        # Linux - lower due to rounding error
-        return 1
+    return 7
 
 
 def get_qlse_prob(ref):

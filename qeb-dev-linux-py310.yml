@@ -4,8 +4,7 @@ channels:
     - conda-forge
 
 dependencies:
-    - gfortran=12.3.0
-    - libgfortran-ng=12.3.0
+    - gfortran_linux-64
     - python=3.10.*
     - numpy=1.21.*
     - pre-commit
