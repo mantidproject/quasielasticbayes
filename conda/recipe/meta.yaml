@@ -11,7 +11,7 @@ source:
 
 build:
   skip: True  # [py<310 or py>310 or osx]
-  script: {{ PYTHON }} setup.py install
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
   number: 0
 
 requirements:
