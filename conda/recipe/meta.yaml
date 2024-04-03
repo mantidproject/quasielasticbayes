@@ -10,6 +10,7 @@ source:
   sha256: 64eb64ea909eb40519519756f4763d07ab096454be6f7520f65756fbefe3841b
 
 build:
+  skip: True  # [py<310 or py>310 or osx]
   script: {{ PYTHON }} setup.py install
   number: 0
 
@@ -17,11 +18,11 @@ requirements:
   build:
     - {{ compilers }}
   host:
-    - python {{ python }}
+    - python
     - setuptools
     - numpy
   run:
-    - python {{ python }}
+    - python
     - {{ pin_compatible('numpy') }}
 
 test:
