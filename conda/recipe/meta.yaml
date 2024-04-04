@@ -11,13 +11,12 @@ source:
 
 build:
   skip: True  # [py<310 or py>310 or osx]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv
+  script: {{ PYTHON }} setup.py install
   number: 0
 
 requirements:
   build:
-    - m2w64-toolchain_win-64                 # [win]
-    - gfortran                               # [linux]
+    - {{ fortran_compiler }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
