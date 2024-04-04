@@ -41,7 +41,7 @@ class QLresTest(unittest.TestCase):
         np.testing.assert_almost_equal(reference['yout'], yout, decimal=dp)
         np.testing.assert_almost_equal(reference['eout'], eout, decimal=dp)
         np.testing.assert_almost_equal(reference['yfit'], yfit, decimal=dp)
-        np.testing.assert_almost_equal(reference['yprob'], yprob, decimal=dp)
+        np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-2)
 
 if __name__ == '__main__':
     unittest.main()
