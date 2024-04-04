@@ -14,14 +14,14 @@ Create a minimal conda environment:
 ### Windows - Python 3.10
 
 ```sh
-mamba env create -f qeb-dev-win-py310.yml
+mamba env create -f conda/develop/qeb-win-py310.yml
 conda activate qeb-dev-py310
 ```
 
 ### Linux - Python 3.10
 
 ```sh
-mamba env create -f qeb-dev-linux-py310.yml
+mamba env create -f conda/develop/qeb-linux-py310.yml
 conda activate qeb-dev-py310
 ```
 
@@ -39,14 +39,14 @@ to the compiler version. To install:
 Then create a developer conda environment:
 
 ```sh
-mamba env create -f qeb-dev-win-py38.yml
+mamba env create -f conda/develop/qeb-win-py38.yml
 conda activate qeb-dev-py38
 ```
 
 ### Linux - Python 3.8
 
 ```sh
-mamba env create -f qeb-dev-linux-py38.yml
+mamba env create -f conda/develop/qeb-linux-py38.yml
 conda activate qeb-dev-py38
 ```
 
@@ -78,8 +78,35 @@ If this is your first time interacting with PyPi then please see [here](https://
 
 Once built the wheel can be uploaded using twine:
 
-```
+```sh
 twine upload ./dist/name_of_wheel
+```
+
+## Building for conda-forge
+
+Enter the `conda/recipe` directory and activate the build environment
+
+```sh
+mamba env create -f conda/recipe/qeb-build-py310.yml
+conda activate qeb-build-py310
+```
+
+To build the package, run
+
+```sh
+conda build . --output-folder .
+```
+
+To install the package built locally, run
+
+```sh
+conda install --use-local *-64/quasielasticbayes-*.tar.bz2
+```
+
+To run the tests, you will also need to install `pytest` and `numpy`.
+
+```sh
+conda install -c conda-forge numpy pytest
 ```
 
 ### Linux Notes

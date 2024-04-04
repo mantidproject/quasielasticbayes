@@ -16,25 +16,14 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
-      - name: Setup Miniconda - Ubuntu
-        if: matrix.os == 'ubuntu-latest'
-        uses: conda-incubator/setup-miniconda@v2.2.0
+        uses: actions/checkout@v4
+      - name: Setup Build Env
+        uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-variant: Mambaforge
-          environment-file: qeb-dev-linux-py310.yml
-          activate-environment: qeb-dev-py310
-      - name: Setup Miniconda - Windows
-        if: matrix.os == 'windows-latest'
-        uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          miniforge-variant: Mambaforge
-          environment-file: qeb-dev-win-py310.yml
-          activate-environment: qeb-dev-py310
-      - name: Build & Install
+          environment-file: conda/recipe/qeb-ci-py310.yml
+          activate-environment: qeb-ci-py310
+      - name: Build & Test
         run: |
-          python setup.py bdist_wheel
-          pip install --force-reinstall dist/quasielasticbayes-0.2.0-cp310-cp310-*.whl
-      - name: Test
-        run: |
-          pytest quasielasticbayes/test
+          cd conda/recipe
+          conda build .
