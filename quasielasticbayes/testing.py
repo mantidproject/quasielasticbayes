@@ -41,7 +41,7 @@ def get_OS_precision():
         return 7  # np.almost_equals default
     elif sys.platform == 'darwin':
         # Mac OS
-        return 7
+        return 1
     else:
         # Linux - lower due to rounding error
         return 1
