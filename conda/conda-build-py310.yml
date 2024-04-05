@@ -1,4 +1,5 @@
-name: qeb-build-py310
+# Creates an environment for building a Conda package
+name: qeb-conda-build-py310
 
 channels:
     - conda-forge
