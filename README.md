@@ -1,7 +1,7 @@
 # quasielasticbayes
 
 This package provides a convenient set of Python wrappers for a set of routines used to perform Bayesian analysis
-on quasi-elastic neutron-scattering data. The original Fortran code was written by Dr. Devinder Silvia, with 
+on quasi-elastic neutron-scattering data. The original Fortran code was written by Dr. Devinder Sivia, with 
 supervision from Dr. Spencer Howells, in the 1980's. The longevity of the package is owed to the efforts of
 Dr. Spencer Howells, and members of the Mantid Project team.
 
