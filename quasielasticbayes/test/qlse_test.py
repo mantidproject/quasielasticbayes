@@ -2,9 +2,9 @@
 import os.path
 import unittest
 import numpy as np
-from quasielasticbayes.testing import load_json, add_path
-from quasielasticbayes.testing import get_OS_precision, get_qlse_prob
 import tempfile
+
+from quasielasticbayes.testing import load_json, add_path
 from quasielasticbayes.QLres import qlres
 
 
@@ -44,23 +44,15 @@ class QLresTest(unittest.TestCase):
                                                       inputs['lwrk'])
 
             # verify
-            cf = 'qlse_output.json'
-            with open(os.path.join(DATA_DIR, 'qlse', cf), 'r') as fh:
+            with open(os.path.join(DATA_DIR, 'qlse', 'qlse_output.json'), 'r') as fh:
                 reference = load_json(fh)
 
-            dp = get_OS_precision()
             self.assertEqual(reference['nd'], nd)
-            np.testing.assert_almost_equal(reference['xout'], xout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['yout'], yout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['eout'], eout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['yfit'], yfit,
-                                           decimal=dp)
-            ref_prob = get_qlse_prob(reference['yprob'])
-            np.testing.assert_almost_equal(ref_prob, yprob,
-                                           decimal=dp)
+            np.testing.assert_allclose(reference['xout'], xout)
+            np.testing.assert_allclose(reference['yout'], yout)
+            np.testing.assert_allclose(reference['eout'], eout)
+            np.testing.assert_allclose(reference['yfit'], yfit, rtol=1e-3)
+            np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-2)
 
 
 if __name__ == '__main__':

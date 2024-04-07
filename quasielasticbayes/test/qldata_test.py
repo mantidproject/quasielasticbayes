@@ -2,8 +2,9 @@
 import os.path
 import unittest
 import numpy as np
-from quasielasticbayes.testing import load_json, add_path, get_OS_precision
 import tempfile
+
+from quasielasticbayes.testing import load_json, add_path
 from quasielasticbayes.QLdata import qldata
 
 
@@ -45,18 +46,12 @@ class QLdataTest(unittest.TestCase):
             with open(os.path.join(DATA_DIR, 'qldata', cf), 'r') as fh:
                 reference = load_json(fh)
 
-            dp = get_OS_precision()
             self.assertEqual(reference['nd'], nd)
-            np.testing.assert_almost_equal(reference['xout'], xout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['yout'], yout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['eout'], eout,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['yfit'], yfit,
-                                           decimal=dp)
-            np.testing.assert_almost_equal(reference['yprob'],
-                                           yprob, decimal=dp)
+            np.testing.assert_allclose(reference['xout'], xout)
+            np.testing.assert_allclose(reference['yout'], yout)
+            np.testing.assert_allclose(reference['eout'], eout)
+            np.testing.assert_allclose(reference['yfit'], yfit, rtol=1e-3)
+            np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-3)
 
 
 if __name__ == '__main__':

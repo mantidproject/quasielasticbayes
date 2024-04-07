@@ -4,7 +4,6 @@ import base64
 import json
 import numpy as np
 import os
-import sys
 
 
 def _json_numpy_obj_hook(dct):
@@ -35,17 +34,8 @@ def add_path(file_path, file_name):
     return os.path.join(file_path, file_name)
 
 
-def get_OS_precision():
-    if sys.platform == 'win32':
-        # Windows
-        return 7
-    else:
-        # Linux or Mac OS
-        return 1
-
-
-def get_qlse_prob(ref):
-    if sys.platform == 'win32':
-        return ref
-    else:
-        return [-2.7656994e+04, -1.8887866e+2,  0.0, -5.8251953e-1]
+# def get_qlse_prob(ref):
+#     if sys.platform == 'win32':
+#         return ref
+#     else:
+#         return [-2.7656994e+04, -1.8887866e+2,  0.0, -5.8251953e-1]
