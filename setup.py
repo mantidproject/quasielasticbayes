@@ -2,6 +2,7 @@
 Setuptools support for building the Fortran extensions with
 numpy.f2py
 """
+from os import environ
 from pathlib import PurePosixPath
 from subprocess import STDOUT, check_output
 # Importing setuptools modifies the behaviour of setup from distutils
@@ -9,7 +10,6 @@ from subprocess import STDOUT, check_output
 import setuptools
 import sys
 from typing import Sequence, Tuple
-import os
 
 from numpy.distutils.core import (Extension as FortranExtension, setup)
 from numpy.distutils.command.build_ext import build_ext as _build_ext
@@ -25,13 +25,6 @@ def create_fortran_extension(fq_name: str, sources: Sequence[str]) -> FortranExt
     :return: An Extension class to be built
     """
     extra_compile_args, extra_link_args, extra_f90_compile_args = compiler_flags()
-    fflags_value = os.environ.get('FFLAGS')
-    res = fflags_value.replace("-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe ", "")
-    print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n")
-    print(str(fflags_value))
-    print("AFTER\n")
-    print(str(res))
-    os.environ['FFLAGS'] = res
     return FortranExtension(name=fq_name,
                             sources=sources,
                             extra_f90_compile_args=extra_f90_compile_args,
@@ -43,24 +36,17 @@ def compiler_flags() -> Tuple[Sequence[str], Sequence[str]]:
     """
     :return: The compiler flags appropriate for this platform
     """
-    if sys.platform == 'win32':
-        # Compile static libs on windows
-        extra_compile_args = []
+    extra_compile_args = []
+    extra_link_args = []
+    if sys.platform == "win32":
         extra_link_args = ["-static", "-static-libgfortran", "-static-libgcc"]
-        extra_f90_compile_args = ["-O1"]
-    elif sys.platform == 'darwin':
-        extra_compile_args = ['-Wno-argument-mismatch']
+    elif sys.platform == "darwin":
+        extra_compile_args = ["-Wno-argument-mismatch"]
         extra_link_args = ["-static", "-static-libgfortran", "-static-libgcc"]
-        extra_f90_compile_args = ["-O1"]
-    else:
-        # On Linux we build a manylinux2010
-        # (https://www.python.org/dev/peps/pep-0571/#the-manylinux2010-policy)
-        # wheel that assumes compatible versions of bases libraries are installed.
-        extra_compile_args = []
-        extra_link_args = []
-        extra_f90_compile_args = ["-O1"]
+        fflags_value = environ.get('FFLAGS')
+        environ['FFLAGS'] = fflags_value.replace("-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe ", "")
 
-    extra_f90_compile_args.append("-std=legacy")
+    extra_f90_compile_args = ["-O1", "-std=legacy"]
 
     return extra_compile_args, extra_link_args, extra_f90_compile_args
 
