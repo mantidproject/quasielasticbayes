@@ -9,6 +9,7 @@ from subprocess import STDOUT, check_output
 import setuptools
 import sys
 from typing import Sequence, Tuple
+import os
 
 from numpy.distutils.core import (Extension as FortranExtension, setup)
 from numpy.distutils.command.build_ext import build_ext as _build_ext
@@ -24,6 +25,13 @@ def create_fortran_extension(fq_name: str, sources: Sequence[str]) -> FortranExt
     :return: An Extension class to be built
     """
     extra_compile_args, extra_link_args, extra_f90_compile_args = compiler_flags()
+    fflags_value = os.environ.get('FFLAGS')
+    res = fflags_value.replace("-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe ", "")
+    print("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n")
+    print(str(fflags_value))
+    print("AFTER\n")
+    print(str(res))
+    os.environ['FFLAGS'] = res
     return FortranExtension(name=fq_name,
                             sources=sources,
                             extra_f90_compile_args=extra_f90_compile_args,
