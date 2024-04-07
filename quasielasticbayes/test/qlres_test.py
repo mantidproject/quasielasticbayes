@@ -3,6 +3,7 @@ import os.path
 import tempfile
 import unittest
 import numpy as np
+import sys
 from quasielasticbayes.testing import add_path, get_OS_precision, load_json
 
 from quasielasticbayes.QLres import qlres
@@ -17,6 +18,7 @@ class QLresTest(unittest.TestCase):
     with the inputs taken from the BayesQuasiTest unit test
     """
 
+    @unittest.skipIf(sys.platform == "darwin", "Reading the json reference file causes an unexplained crash.")
     def test_qlres_minimal_input(self):
         # reference inputs
         with open(os.path.join(DATA_DIR, 'qlres', 'qlres-input-spec-0.json'), 'r') as fh:
