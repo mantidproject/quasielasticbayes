@@ -4,9 +4,8 @@ import unittest
 import numpy as np
 import tempfile
 
-from quasielasticbayes.testing import load_json, add_path
+from quasielasticbayes.testing import add_path, load_json, RELATIVE_TOLERANCE_FIT, RELATIVE_TOLERANCE_PROB
 from quasielasticbayes.QLres import qlres
-
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -19,13 +18,12 @@ class QLresTest(unittest.TestCase):
     """
 
     def test_qlres_minimal_input(self):
-        # reference inputs
-        fin = 'qlse_input.json'
-        with open(os.path.join(DATA_DIR, 'qlse', fin), 'r') as fh:
+        with open(os.path.join(DATA_DIR, 'qlse', 'qlse_input.json'), 'r') as fh:
             inputs = load_json(fh)
-        with tempfile.TemporaryDirectory() as tmp_dir:
 
+        with tempfile.TemporaryDirectory() as tmp_dir:
             inputs['wrks'] = add_path(tmp_dir, inputs['wrks'])
+
             nd, xout, yout, eout, yfit, yprob = qlres(inputs['numb'],
                                                       inputs['Xv'],
                                                       inputs['Yv'],
@@ -51,8 +49,8 @@ class QLresTest(unittest.TestCase):
             np.testing.assert_allclose(reference['xout'], xout)
             np.testing.assert_allclose(reference['yout'], yout)
             np.testing.assert_allclose(reference['eout'], eout)
-            np.testing.assert_allclose(reference['yfit'], yfit, rtol=1e-3)
-            np.testing.assert_allclose(reference['yprob'], yprob, rtol=1e-2)
+            np.testing.assert_allclose(reference['yfit'], yfit, rtol=RELATIVE_TOLERANCE_FIT)
+            np.testing.assert_allclose(reference['yprob'], yprob, rtol=RELATIVE_TOLERANCE_PROB)
 
 
 if __name__ == '__main__':
