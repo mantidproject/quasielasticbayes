@@ -43,8 +43,12 @@ def compiler_flags() -> Tuple[Sequence[str], Sequence[str]]:
     elif sys.platform == "darwin":
         extra_compile_args = ["-Wno-argument-mismatch"]
         extra_link_args = ["-static", "-static-libgfortran", "-static-libgcc"]
-        fflags_value = environ.get('FFLAGS')
-        environ['FFLAGS'] = fflags_value.replace("-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe ", "")
+
+    fflags_value = environ.get('FFLAGS')
+    if isinstance(fflags_value, str):
+        fflags_value = fflags_value.replace("-fstack-protector ", "")
+        fflags_value = fflags_value.replace("-fstack-protector-strong ", "")
+        environ['FFLAGS'] = fflags_value
 
     extra_f90_compile_args = ["-O1", "-std=legacy"]
 
