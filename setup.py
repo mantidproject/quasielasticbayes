@@ -2,13 +2,13 @@
 Setuptools support for building the Fortran extensions with
 numpy.f2py
 """
+from os import environ
 from pathlib import PurePosixPath
-from subprocess import STDOUT, check_output
 # Importing setuptools modifies the behaviour of setup from distutils
 # to support building wheels. It will be marked as unused by IDEs/static analysis.
 import setuptools
 import sys
-from typing import Sequence, Tuple
+from typing import Sequence
 
 from numpy.distutils.core import (Extension as FortranExtension, setup)
 from numpy.distutils.command.build_ext import build_ext as _build_ext
@@ -23,38 +23,25 @@ def create_fortran_extension(fq_name: str, sources: Sequence[str]) -> FortranExt
     :param sources: List of relative paths from this file to the sources
     :return: An Extension class to be built
     """
-    extra_compile_args, extra_link_args, extra_f90_compile_args = compiler_flags()
+    _remove_environment_compiler_flags()
     return FortranExtension(name=fq_name,
                             sources=sources,
-                            extra_f90_compile_args=extra_f90_compile_args,
-                            extra_link_args=extra_link_args,
-                            extra_compile_args=extra_compile_args)
+                            extra_f90_compile_args=["-O1", "-std=legacy"],
+                            extra_link_args=["-static", "-static-libgfortran", "-static-libgcc"]
+                                             if sys.platform == "win32" else [])
 
 
-def compiler_flags() -> Tuple[Sequence[str], Sequence[str]]:
+def _remove_environment_compiler_flags() -> None:
     """
-    :return: The compiler flags appropriate for this platform
+    Using the 'gfortran_linux-64' and 'gfortran_osx-64' conda packages gives poor fit results by default 
+    because they set several optimization compiler flags which alter the operation of the Fortran code. We 
+    must therefore remove these flags from the 'FFLAGS' environment variable before performing the compilation.
     """
-    if sys.platform == 'win32':
-        # Compile static libs on windows
-        extra_compile_args = []
-        extra_link_args = ["-static", "-static-libgfortran", "-static-libgcc"]
-        extra_f90_compile_args = ["-O1"]
-    elif sys.platform == 'darwin':
-        extra_compile_args = ['-Wno-argument-mismatch']
-        extra_link_args = ["-static", "-static-libgfortran", "-static-libgcc"]
-        extra_f90_compile_args = ["-O1"]
-    else:
-        # On Linux we build a manylinux2010
-        # (https://www.python.org/dev/peps/pep-0571/#the-manylinux2010-policy)
-        # wheel that assumes compatible versions of bases libraries are installed.
-        extra_compile_args = []
-        extra_link_args = []
-        extra_f90_compile_args = ["-O1"]
-
-    extra_f90_compile_args.append("-std=legacy")
-
-    return extra_compile_args, extra_link_args, extra_f90_compile_args
+    fflags_value = environ.get('FFLAGS')
+    if isinstance(fflags_value, str):
+        fflags_value = fflags_value.replace("-fstack-protector ", "")
+        fflags_value = fflags_value.replace("-fstack-protector-strong ", "")
+        environ['FFLAGS'] = fflags_value
 
 
 def source_paths(dirname: PurePosixPath, filenames: Sequence[str]) -> Sequence[str]:
