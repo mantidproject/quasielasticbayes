@@ -117,7 +117,7 @@ setup(
     ext_modules=extensions,
     author_email="mantid-help@mantidproject.org",
     url="https://github.com/mantidproject/quasielasticbayes",
-    version="0.2.1",
+    version="0.2.2",
     license="BSD",
     cmdclass={"build_ext": FortranExtensionBuilder}
 )

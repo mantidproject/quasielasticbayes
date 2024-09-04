@@ -1,5 +1,5 @@
 {% set name = "quasielasticbayes" %}
-{% set version = "0.2.1" %}
+{% set version = "0.2.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 2cf84345cd7381d54d2a794a054f10823301fde73b8f3f699583adc1b75bbea7
+  sha256: 980313e642b0d5efcda7f37528d8ded2d28b577887122a9c1d4158cef61de058
 
 build:
   skip: True  # [py<310 or py>310]
