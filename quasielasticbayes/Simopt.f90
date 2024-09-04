@@ -31,7 +31,7 @@ INTEGER  IR(51),INDX(50)
 EXTERNAL CCHI
 DATA     NMAX /50/
 !
-IF (N.GT.NMAX) STOP' Sorry, too many parameters !'
+IF (N.GT.NMAX) STOP 'Sorry, too many parameters !'
 CALL VCOPY(X,V,N)
 CHIMIN=CCHI(V)
 1 CALL SIMPLEX(V,N,DX,EX,C,IR,N*1000)
