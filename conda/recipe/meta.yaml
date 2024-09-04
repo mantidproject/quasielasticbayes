@@ -1,19 +1,19 @@
 {% set name = "quasielasticbayes" %}
-{% set version = "0.2.0" %}
+{% set version = "0.2.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.b6.tar.gz
-  sha256: 1aa89b704b0bce81749b576b633f87f1c746d05c4d54591f6f65f3ccf0b045b8
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 2cf84345cd7381d54d2a794a054f10823301fde73b8f3f699583adc1b75bbea7
 
 build:
   skip: True  # [py<310 or py>310]
   error_overlinking: false
   script: {{ PYTHON }} setup.py install
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -27,7 +27,6 @@ requirements:
     - numpy
   run:
     - python
-    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
