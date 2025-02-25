@@ -23,7 +23,9 @@ requirements:
     - {{ fortran_compiler }}
   host:
     - python
-    - setuptools
+    # limit setuptools version to avoid ModuleNotFoundError: No module named 'distutils.msvccompiler'
+    # when building the package
+    - setuptools<74
     - numpy
   run:
     - python
