@@ -20,7 +20,6 @@ jobs:
       - name: Setup Build Env
         uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-variant: Mambaforge
           environment-file: conda/conda-build-py310.yml
           activate-environment: qeb-conda-build-py310
       - name: Build & Test
