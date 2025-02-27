@@ -1,17 +1,14 @@
 """
-Setuptools support for building the Fortran extensions with
-numpy.f2py
+Setuptools support for building the Fortran extensions
 """
 from os import environ
 from pathlib import PurePosixPath
-# Importing setuptools modifies the behaviour of setup from distutils
-# to support building wheels. It will be marked as unused by IDEs/static analysis.
 import setuptools
 import sys
 from typing import Sequence
 
-from numpy.distutils.core import (Extension as FortranExtension, setup)
-from numpy.distutils.command.build_ext import build_ext as _build_ext
+from setuptools import Extension as FortranExtension
+from setuptools.command.build_ext import build_ext as _build_ext
 
 PACKAGE_NAME = 'quasielasticbayes'
 
@@ -107,7 +104,7 @@ module_source_map = {
 extensions = [create_fortran_extension(name, source_paths(PurePosixPath('quasielasticbayes'), sources)) for
               name, sources in module_source_map.items()]
 
-setup(
+setuptools.setup(
     name=PACKAGE_NAME,
     packages=[PACKAGE_NAME],
     description="A Bayesian fitting package used for fitting quasi-elastic neutron scattering (QENS) data.",
