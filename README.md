@@ -21,28 +21,12 @@ To install this package from PyPi, run
 pip install quasielasticbayes
 ```
 
-## Develop: Building the Conda package
-
-To create and activate the build environment, run
-
-```sh
-mamba env create -f conda/conda-build-py310.yml && conda activate qeb-conda-build-py310
-```
-
-To build a Conda package, run
-
-```sh
-conda build conda/recipe/ --output-folder .
-```
-
-At the end of the conda build step, the tests are run automatically to verify the package is working.
-
 ## Develop: Building the PyPi package
 
-To create and activate the build environment, run
+To create and activate the build environment, run (use `conda_envs/pypi-build-py310-win.yml` on Windows)
 
 ```sh
-mamba env create -f conda/pypi-build-py310.yml && conda activate qeb-pypi-build-py310
+mamba env create -f conda_envs/pypi-build-py310.yml && conda activate qeb-pypi-build-py310
 ```
 
 To build a wheel and the source distribution tarball, run

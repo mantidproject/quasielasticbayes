@@ -10,18 +10,24 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    defaults:
-      run:
-        shell: bash -l {0}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-      - name: Setup Build Env
+      - uses: actions/checkout@v4
+      - name: Activate env
+        if: ${{ matrix.os  == 'ubuntu-latest' ||  matrix.os == 'macos-latest'}}
         uses: conda-incubator/setup-miniconda@v3
-        with:
-          environment-file: conda/conda-build-py310.yml
-          activate-environment: qeb-conda-build-py310
-      - name: Build & Test
+        with: 
+          environment-file: conda_envs/pypi-build-py310.yml
+          activate-environment: qeb-pypi-build-py310
+      - name: Activate Windows env
+        if: ${{ matrix.os  == 'windows-latest'}}
+        uses: conda-incubator/setup-miniconda@v3
+        with: 
+          environment-file: conda_envs/pypi-build-py310-win.yml
+          activate-environment: qeb-pypi-build-py310-win
+      - name: Build wheel
+        run: ./scripts/rebuild.sh
+      - name: Install and run tests
         run: |
-          conda build conda/recipe/
+          pip install --force-reinstall dist/quasielasticbayes-*.whl
+          pytest quasielasticbayes/test
