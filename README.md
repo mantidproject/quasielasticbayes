@@ -44,5 +44,5 @@ pip install --force-reinstall dist/quasielasticbayes-*.whl
 To run the tests on the installed package
 
 ```sh
-pytest quasielasticbayes/test
+pytest src/quasielasticbayes/test
 ```
