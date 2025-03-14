@@ -1,6 +1,6 @@
 [build-system]
-requires = ["scikit-build-core", "numpy"]
-build-backend = "scikit_build_core.build"
+requires = ["meson-python", "numpy"]
+build-backend = "mesonpy"
 
 [project]
 name = "quasielasticbayes"
@@ -19,7 +19,3 @@ description = "A Bayesian fitting package used for fitting quasi-elastic neutron
 readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE.txt"]
-
-[tool.scikit-build]
-ninja.version = ">=1.10"
-cmake.version = ">=3.17.2"

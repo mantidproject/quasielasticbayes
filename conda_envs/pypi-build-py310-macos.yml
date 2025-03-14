@@ -1,0 +1,15 @@
+# Creates an environment for building & testing a PyPi wheel
+name: qeb-pypi-build-py310-macos
+
+channels:
+    - conda-forge
+
+dependencies:
+    - gfortran_osx-64=12
+    - clang_osx-64=19
+    - python=3.10.*
+    - numpy==2.0.*
+    - pre-commit
+    - pytest
+    - meson=1.7.0
+    - meson-python=0.17

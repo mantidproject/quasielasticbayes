@@ -9,32 +9,26 @@ jobs:
     runs-on: ${{ matrix.sys.os }}
     strategy:
       matrix:
-        sys: [{ os: ubuntu-latest, shell: 'bash -l {0}'}, 
-              {os: macos-latest, shell: 'bash -l {0}'},
-              { os: windows-latest, shell: 'cmd {0}'}]
+        sys: [{ os: ubuntu-latest, env_name: 'pypi-build-py310-linux'},
+              {os: macos-13, env_name: 'pypi-build-py310-macos'},
+              {os: macos-latest, env_name: 'pypi-build-py310-macos-arm'},
+              { os: windows-latest, env_name: 'pypi-build-py310-windows'}]
     defaults:
       run:
-        shell: ${{ matrix.sys.shell }}
+        shell: bash -l {0}
 
     steps:
       - uses: actions/checkout@v4
       - name: Activate env
-        if: ${{ matrix.sys.os  == 'ubuntu-latest' ||  matrix.sys.os == 'macos-latest'}}
         uses: conda-incubator/setup-miniconda@v3
         with: 
-          environment-file: conda_envs/pypi-build-py310.yml
-          activate-environment: qeb-pypi-build-py310
-      - name: Activate Windows env
-        if: ${{ matrix.sys.os  == 'windows-latest'}}
-        uses: conda-incubator/setup-miniconda@v3
-        with: 
-          environment-file: conda_envs/pypi-build-py310-win.yml
-          activate-environment: qeb-pypi-build-py310-win
-      - name: pip install build
-        run: pip install build
-      - name: Build wheel
-        run: python -m build .
+          environment-file: conda_envs/${{ matrix.sys.env_name }}.yml
+          activate-environment: ${{ matrix.sys.env_name }}
+      - name: Meson Build package
+        run: |
+          meson setup builddir -Dbuildtype=release
+          meson compile -C builddir
       - name: Install and run tests
         run: |
-          pip install --force-reinstall dist/quasielasticbayes-*.whl
+          pip install --no-build-isolation -e .
           pytest src/quasielasticbayes/test
