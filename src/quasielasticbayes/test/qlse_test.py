@@ -5,7 +5,7 @@ import numpy as np
 import tempfile
 
 from quasielasticbayes.testing import add_path, load_json, RELATIVE_TOLERANCE_FIT, RELATIVE_TOLERANCE_PROB
-from quasielasticbayes.QLres import qlres
+from quasielasticbayes.QLse import qlstexp
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
@@ -24,7 +24,7 @@ class QLresTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             inputs['wrks'] = add_path(tmp_dir, inputs['wrks'])
 
-            nd, xout, yout, eout, yfit, yprob = qlres(inputs['numb'],
+            nd, xout, yout, eout, yfit, yprob = qlstexp(inputs['numb'],
                                                       inputs['Xv'],
                                                       inputs['Yv'],
                                                       inputs['Ev'],
