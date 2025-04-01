@@ -26,6 +26,7 @@ jobs:
           activate-environment: ${{ matrix.sys.env_name }}
       - name: Meson Build package
         run: |
+          export FFLAGS=$(echo $FFLAGS | sed 's/-O2/-O1/' | sed 's/-fstack-protector-strong//')
           meson setup builddir -Dbuildtype=release
           meson compile -C builddir
       - name: Install and run tests

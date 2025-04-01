@@ -15,8 +15,6 @@ if ff.get_id() == 'gcc'
   add_project_arguments('-std=legacy', language: 'fortran')
 endif
 
-run_command(py3, 'build_helper/trim_fflags.py')
-
 # module_name: [main_file, [additional_sources]]
 module_map = {
   'ResNorm': ['ResNorm_main.f90', ['ResNorm_subs.f90', 'BlrRes.f90', 'Bayes.f90', 'Four.f90', 'Util.f90']],
