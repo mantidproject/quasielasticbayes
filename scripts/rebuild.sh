@@ -2,4 +2,4 @@
 
 meson setup builddir -Dbuildtype=release
 
-meson compile -C builddir
+meson compile -C builddir -vv

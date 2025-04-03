@@ -28,8 +28,9 @@ jobs:
       - name: Meson Build package
         run: |
           export FFLAGS=$(echo $FFLAGS | sed 's/-O2/-O1/' | sed 's/-fstack-protector-strong//')
+          env
           meson setup builddir -Dbuildtype=release
-          meson compile -C builddir
+          meson compile -C builddir -vv
       - name: Install and run tests
         run: |
           pip install --no-build-isolation -e .
