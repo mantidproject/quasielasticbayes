@@ -25,13 +25,9 @@ jobs:
         with: 
           environment-file: conda_envs/${{ matrix.sys.env_name }}.yml
           activate-environment: ${{ matrix.sys.env_name }}
-      - name: Meson Build package
-        run: |
-          export FFLAGS=$(echo $FFLAGS | sed 's/-O2/-O1/' | sed 's/-fstack-protector-strong//')
-          env
-          meson setup builddir -Dbuildtype=release
-          meson compile -C builddir -vv
       - name: Install and run tests
         run: |
+          export FFLAGS=$($FFLAGS | perl -pe 's|-O2|-O1|' | perl -pe 's|-fstack-protector.*?\b||')
+          env
           pip install --no-build-isolation -e .
           pytest src/quasielasticbayes/test
