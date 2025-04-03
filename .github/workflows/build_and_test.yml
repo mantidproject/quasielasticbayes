@@ -13,6 +13,7 @@ jobs:
               {os: macos-13, env_name: 'pypi-build-py310-macos'},
               {os: macos-latest, env_name: 'pypi-build-py310-macos-arm'},
               { os: windows-latest, env_name: 'pypi-build-py310-windows'}]
+      fail-fast: false
     defaults:
       run:
         shell: bash -l {0}
