@@ -4,7 +4,7 @@ build-backend = "mesonpy"
 
 [project]
 name = "quasielasticbayes"
-version = "0.2.3"
+version = "0.3.0"
 dependencies = ["numpy"]
 authors = [
     {name="Dr. Devinder Sivia", email="mantid-help@mantidproject.org"},
