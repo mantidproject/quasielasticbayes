@@ -15,13 +15,7 @@ To install this package from conda-forge, run
 conda install -c conda-forge quasielasticbayes
 ```
 
-To install this package from PyPi, run
-
-```sh
-pip install quasielasticbayes
-```
-
-## Develop: Building the PyPi package
+## Develop: Building and testing locally
 
 To create and activate the build environment, run
 
