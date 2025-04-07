@@ -7,7 +7,7 @@ channels:
 dependencies:
     - gfortran_osx-arm64=12
     - clang_osx-arm64=19
-    - numpy==2.0.*
+    - numpy
     - pre-commit
     - pytest
     - meson=1.7.0
