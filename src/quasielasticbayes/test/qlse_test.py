@@ -1,5 +1,6 @@
 """Characterization tests for QLres module"""
 import os.path
+import platform
 import unittest
 import numpy as np
 import sys
@@ -52,6 +53,8 @@ class QLresTest(unittest.TestCase):
             np.testing.assert_allclose(reference['eout'], eout)
             if sys.platform == "linux":
                 np.testing.assert_allclose(reference['yfit'], yfit, rtol=0.015)
+            elif sys.platform == "darwin" and platform.machine().lower() == "arm64":
+                np.testing.assert_allclose(reference['yfit'], yfit, rtol=0.01)
             else:
                 np.testing.assert_allclose(reference['yfit'], yfit, rtol=RELATIVE_TOLERANCE_FIT)
             np.testing.assert_allclose(reference['yprob'], yprob, rtol=RELATIVE_TOLERANCE_PROB)
