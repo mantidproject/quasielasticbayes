@@ -1,5 +1,6 @@
 ./scripts/clean.sh
 
-meson setup builddir -Dbuildtype=release
+# on linux and macos, fortran stack protector flags (brought in by conda) cause the fitting results to be poor
+export FFLAGS=$($FFLAGS | perl -pe 's|-O2|-O1|' | perl -pe 's|-fstack-protector.*?\b||')
 
-meson compile -C builddir -vv
+pip install --no-build-isolation -e . -v -Ccompile-args=-v

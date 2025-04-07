@@ -26,19 +26,13 @@ pip install quasielasticbayes
 To create and activate the build environment, run
 
 ```sh
-mamba env create -f conda_envs/pypi-build-py310-[os].yml && conda activate qeb-pypi-build-py310-[os]
+mamba env create -f conda_envs/qeb-build-env-[os].yml && conda activate qeb-build-env-[os]
 ```
 
-To build the package, run
+To build and install the package locally, run
 
 ```sh
 ./scripts/rebuild.sh
-```
-
-To install a locally-built PyPi wheel for testing, run
-
-```sh
-pip install --no-build-isolation -e .
 ```
 
 To run the tests on the installed package

@@ -1,4 +1,4 @@
-name: Build and Test - Python 3.10
+name: Build and test
 
 on:
   pull_request:
@@ -9,10 +9,11 @@ jobs:
     runs-on: ${{ matrix.sys.os }}
     strategy:
       matrix:
-        sys: [{ os: ubuntu-latest, env_name: 'pypi-build-py310-linux'},
-              {os: macos-13, env_name: 'pypi-build-py310-macos'},
-              {os: macos-latest, env_name: 'pypi-build-py310-macos-arm'},
-              { os: windows-latest, env_name: 'pypi-build-py310-windows'}]
+        sys: [{ os: ubuntu-latest, env_name: 'qeb-build-env-linux'},
+              {os: macos-13, env_name: 'qeb-build-env-macos'},
+              {os: macos-latest, env_name: 'qeb-build-env-macos_arm'},
+              { os: windows-latest, env_name: 'qeb-build-env-windows'}]
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
       fail-fast: false
     defaults:
       run:
@@ -20,6 +21,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Activate env
         uses: conda-incubator/setup-miniconda@v3
         with: 
@@ -28,6 +32,5 @@ jobs:
       - name: Install and run tests
         run: |
           export FFLAGS=$($FFLAGS | perl -pe 's|-O2|-O1|' | perl -pe 's|-fstack-protector.*?\b||')
-          env
           pip install --no-build-isolation -e .
           pytest src/quasielasticbayes/test

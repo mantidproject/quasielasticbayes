@@ -1,5 +1,5 @@
 # Creates an environment for building & testing a PyPi wheel
-name: qeb-pypi-build-py310-macos-arm
+name: qeb-build-env-macos_arm
 
 channels:
     - conda-forge
@@ -7,7 +7,6 @@ channels:
 dependencies:
     - gfortran_osx-arm64=12
     - clang_osx-arm64=19
-    - python=3.10.*
     - numpy==2.0.*
     - pre-commit
     - pytest
