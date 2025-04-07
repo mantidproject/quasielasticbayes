@@ -21,12 +21,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
       - name: Activate env
         uses: conda-incubator/setup-miniconda@v3
-        with: 
+        with:
+          python-version: ${{ matrix.python-version }}
           environment-file: conda_envs/${{ matrix.sys.env_name }}.yml
           activate-environment: ${{ matrix.sys.env_name }}
       - name: Install and run tests
