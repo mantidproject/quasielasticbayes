@@ -15,50 +15,22 @@ To install this package from conda-forge, run
 conda install -c conda-forge quasielasticbayes
 ```
 
-To install this package from PyPi, run
-
-```sh
-pip install quasielasticbayes
-```
-
-## Develop: Building the Conda package
+## Develop: Building and testing locally
 
 To create and activate the build environment, run
 
 ```sh
-mamba env create -f conda/conda-build-py310.yml && conda activate qeb-conda-build-py310
+mamba env create -f conda_envs/qeb-build-env-[os].yml && conda activate qeb-build-env-[os]
 ```
 
-To build a Conda package, run
-
-```sh
-conda build conda/recipe/ --output-folder .
-```
-
-At the end of the conda build step, the tests are run automatically to verify the package is working.
-
-## Develop: Building the PyPi package
-
-To create and activate the build environment, run
-
-```sh
-mamba env create -f conda/pypi-build-py310.yml && conda activate qeb-pypi-build-py310
-```
-
-To build a wheel and the source distribution tarball, run
+To build and install the package locally, run
 
 ```sh
 ./scripts/rebuild.sh
 ```
 
-To install a locally-built PyPi wheel for testing, run
-
-```sh
-pip install --force-reinstall dist/quasielasticbayes-*.whl
-```
-
 To run the tests on the installed package
 
 ```sh
-pytest quasielasticbayes/test
+pytest src/quasielasticbayes/test
 ```

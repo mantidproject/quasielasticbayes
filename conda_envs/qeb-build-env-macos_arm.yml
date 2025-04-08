@@ -1,0 +1,14 @@
+# Creates an environment for building & testing a PyPi wheel
+name: qeb-build-env-macos_arm
+
+channels:
+    - conda-forge
+
+dependencies:
+    - gfortran_osx-arm64=12
+    - clang_osx-arm64=19
+    - numpy
+    - pre-commit
+    - pytest
+    - meson=1.7.0
+    - meson-python=0.17

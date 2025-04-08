@@ -1,0 +1,21 @@
+[build-system]
+requires = ["meson-python", "numpy"]
+build-backend = "mesonpy"
+
+[project]
+name = "quasielasticbayes"
+version = "0.3.0"
+dependencies = ["numpy"]
+authors = [
+    {name="Dr. Devinder Sivia", email="mantid-help@mantidproject.org"},
+    {name="Dr. Spencer Howells", email="mantid-help@mantidproject.org"},
+    {name="Mantid Team", email="mantid-help@mantidproject.org"}
+]
+maintainers = [
+    {name="Jonathan Haigh", email="jonathan.haigh@stfc.ac.uk"},
+    {name="Anthony Lim", email="anthony.lim@stfc.ac.uk"}
+]
+description = "A Bayesian fitting package used for fitting quasi-elastic neutron scattering (QENS) data."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]

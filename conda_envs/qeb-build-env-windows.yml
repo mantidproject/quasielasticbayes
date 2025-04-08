@@ -1,0 +1,13 @@
+# Creates an environment for building & testing a PyPi wheel
+name: qeb-build-env-windows
+
+channels:
+    - conda-forge
+ 
+dependencies:
+    - m2w64-toolchain_win-64=2.5.0
+    - numpy
+    - pre-commit
+    - pytest
+    - meson=1.7.0
+    - meson-python=0.17
